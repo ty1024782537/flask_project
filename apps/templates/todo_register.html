@@ -16,10 +16,10 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ url_for('user_bp.register_user') }}">注册</a></li>
                     {% if current_user.is_authenticated %}
                         <li><a href="{{ url_for('user_bp.out_user') }}">注销</a></li>
                     {% else %}
+                        <li><a href="{{ url_for('user_bp.register_user') }}">注册</a></li>
                         <li><a href="{{ url_for('user_bp.user_login') }}">登录</a></li>
                     {% endif %}
                 </ul>

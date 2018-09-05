@@ -2,7 +2,7 @@ from flask import request, url_for, flash
 from apps.forms.form import RegisterUserForm, UserForm
 from apps.cms import user_bp
 from flask import render_template, redirect
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required, current_user
 
 from apps.models import db
 from apps.models.model import MerchantUser
@@ -35,8 +35,10 @@ def user_login():
         password = form.data['password']
         u1 = MerchantUser.query.filter(MerchantUser.username == username).first()
         if u1 is not None and u1.verify_password(password):
+
             try:
                 login_user(u1)
+                print(current_user.id)
                 return redirect(url_for('user_bp.user'))
             except:
                 form.password.errors = ['出错了!!']
@@ -50,3 +52,11 @@ def user_login():
 def out_user():
     logout_user()
     return redirect(url_for('user_bp.user'))
+
+
+@user_bp.route('/merchant_shop/', endpoint='merchant_shop', methods=('GET', 'POST'))
+@login_required
+def merchant_shop():
+    if request.method == 'GET':
+        return '{}正在添加商品'.format(current_user.username)
+    return render_template('merchant_shop.html')

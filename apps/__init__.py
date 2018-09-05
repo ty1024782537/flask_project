@@ -2,6 +2,7 @@ from flask import Flask
 from flask_login import LoginManager
 
 login_manager = LoginManager()
+login_manager.login_view = 'user_bp.user_login'
 
 
 def user_bp(app):
@@ -39,4 +40,5 @@ def create_app():
     user_bp(app)
     # flask-login插件注册
     login_manager.init_app(app)
+
     return app
