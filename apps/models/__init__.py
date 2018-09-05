@@ -14,3 +14,6 @@ class BaseModel(db.Model):
 
 
 from . import model
+from . import shop_model
+
+

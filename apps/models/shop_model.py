@@ -2,7 +2,7 @@ from apps.models import BaseModel, db
 
 
 # 商家店铺信息表
-class SellerShop(BaseModel):
+class MerchantShop(BaseModel):
     # 店铺外部ID
     pub_id = db.Column(db.String(16), unique=True, index=True)
     # 店铺名称
@@ -32,9 +32,9 @@ class SellerShop(BaseModel):
     # 优惠信息
     discount = db.Column(db.String(210), default='')
     # 店铺和商家的关系
-    seller_pid = db.Column(db.Integer, db.ForeignKey('seller_user.id'))
+    merchant_uid = db.Column(db.Integer, db.ForeignKey('merchant_user.id'))
     # 建立反向查询关系
-    seller = db.relationship("SellerUser", backref="shop")
+    merchant = db.relationship("MerchantUser", backref="shop")
 
     def __repr__(self):
-        return '<Shop {} --- {}>'.format(self.shop_name, self.seller)
+        return '<Shop {} --- {}>'.format(self.shop_name, self.merchant)
