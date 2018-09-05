@@ -19,8 +19,12 @@ class MerchantUser(BaseModel, UserMixin):
     def verify_password(self, password):
         return check_password_hash(self._password, password)
 
+    def get_id(self):
+        return str(self.id)
 
-# 加载用户的回调函数
+    # 加载用户的回调函数
+
+
 @login_manager.user_loader
 def load_user(user_id):
-    return MerchantUser.query.get(user_id)
+    return MerchantUser.query.get(int(user_id))

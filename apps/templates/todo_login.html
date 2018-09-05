@@ -11,13 +11,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">商家用户首页</a>
+                <a class="navbar-brand" href="{{ url_for('user_bp.user') }}">商家用户首页</a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="">注册</a></li>
-                    <li><a href="#">登录</a></li>
+                    {% if current_user.is_authenticated %}
+                        <li><a href="{{ url_for('user_bp.out_user') }}">注销</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('user_bp.register_user') }}">注册</a></li>
+                        <li><a href="{{ url_for('user_bp.user_login') }}">登录</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -45,15 +49,6 @@
                             <input type="password" class="form-control" id="password" name="password"
                                    placeholder="输入密码">
                             <p class="text-danger">{{ form.password.errors[0] }}</p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="item_name" class="col-sm-2 control-label">确认密码</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="password1" name="password1"
-                                   placeholder="输入密码">
-                            <p class="text-danger">{{ form.password.errors[0] }}</p>
-                            <p class="text-danger">{{ form.password1.errors[0] }}</p>
                         </div>
                     </div>
                     <div class="form-group">

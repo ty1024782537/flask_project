@@ -18,12 +18,14 @@ class RegisterUserForm(Form):
                                          ],
                              )
 
+
+class UserForm(RegisterUserForm):
     password1 = PasswordField(label="确认密码",
                               validators=[validators.EqualTo('password', message='输入2次一样密码')],
                               )
 
-    # # 校验用户名是否唯一
-    # def validate_username(self, value):
-    #     u = MerchantUser.query.filter(MerchantUser.username == value.data).first()
-    #     if u:
-    #         raise validators.ValidationError(message="该用户名已经被注册了")
+    # 校验用户名是否唯一
+    def validate_username(self, value):
+        u = MerchantUser.query.filter(MerchantUser.username == value.data).first()
+        if u:
+            raise validators.ValidationError(message="该用户名已经被注册了")
