@@ -8,7 +8,7 @@ class MerchantShop(BaseModel):
     # 店铺名称
     shop_name = db.Column(db.String(32), nullable=False, unique=True)
     # 店铺logo图片
-    shop_img = db.Column(db.String(128))
+    shop_img = db.Column(db.String(128), default='')
     # 店铺评分
     shop_rating = db.Column(db.Float, default=5.0)
     # 是否是品牌

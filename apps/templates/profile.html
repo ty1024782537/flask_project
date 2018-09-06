@@ -1,0 +1,86 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}个人中心{% endblock %}
+{% block navbar %}
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                        <a class="navbar-brand" href="{{ url_for('user_bp.user') }}">饿了么商家管理系统首页</a>
+                        <a class="navbar-brand" href="{{ url_for('user_bp.merchant_shop') }}">我要开店</a>
+
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    {% if current_user.is_authenticated %}
+                        <a class="navbar-brand" href="{{ url_for('user_bp.merchant_shop') }}">
+                            尊敬的:{{ current_user.username }}</a>
+                        <li><a href="{{ url_for('user_bp.out_user') }}">注销</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('user_bp.register_user') }}">注册</a></li>
+                        <li><a href="{{ url_for('user_bp.user_login') }}">登录</a></li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center">饿了么商家管理系统</h1>
+        <hr>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong class="text-danger">{{ current_user.username }}</strong> 的店铺：
+            </div>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>店铺名称</th>
+                    <th>店铺评分</th>
+                    <th>起送价格</th>
+                    <th>配送费</th>
+                    <th>菜品分类</th>
+                    <th>菜品信息</th>
+                </tr>
+                </thead>
+                {% if stores %}
+                    <tbody>
+                    {% for store in stores %}
+                        <tr>
+                            <th>{{ loop.index }}</th>
+                            <th><a href="{{ url_for('cms.update_shop', shop_pid=store.pub_id) }}">{{ store.shop_name }}</a></th>
+                            <th>{{ store.shop_rating }}</th>
+                            <th>￥ {{ store.start_send }}</th>
+                            <th>￥ {{ store.send_cost }}</th>
+                            <th>
+                                <a href="#">添加</a>
+                                &nbsp;&nbsp;
+                                <a href="#">查看</a>
+                            </th>
+                            <th>
+                                <a href="#">添加</a>
+                                &nbsp;&nbsp;
+                                <a href="#">查看</a>
+                            </th>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                {% else %}
+                    <div><a href="{{ url_for('cms.add_shop') }}">还没有店铺那，赶快添加一个店铺吧...</a></div>
+                {% endif %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

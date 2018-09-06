@@ -13,8 +13,9 @@
                 </button>
                 {% if current_user.is_authenticated %}
                     <a class="navbar-brand" href="{{ url_for('user_bp.user') }}"> 尊敬的:{{ current_user.username }}</a>
+                    <a class="navbar-brand" href="{{ url_for('user_bp.merchant_shop') }}">我要开店</a>
                 {% else %}
-                    <a class="navbar-brand" href="{{ url_for('user_bp.user') }}">商家用户主页</a>
+                    <a class="navbar-brand" href="{{ url_for('user_bp.user') }}">饿了么商家管理系统</a>
                 {% endif %}
             </div>
 
@@ -39,26 +40,19 @@
             <div class="page-header">
                 <h3 class="text-center">店铺添加</h3>
             </div>
-
             <form class="form-horizontal" method="post" action="">
-                <div class="form-group">
-                    <label for="item_name" class="col-sm-2 control-label">店铺名</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="shop_name" name="shop_name" placeholder="输入店铺名">
-                        <p class="text-danger">{{ form.shop_name.errors[0] }}</p>
+                {% for item in form %}
+                    <div class="form-group">
+                        {{ item.label(class_="col-sm-2 control-label") }}
+                        <div class="col-sm-10">
+                            {{ item }}
+                            <span class="text-danger">{{ item.errors[0] }}</span>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="item_name" class="col-sm-2 control-label">密码</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="password" name="password"
-                               placeholder="输入密码">
-                        <p class="text-danger">{{ form.password.errors[0] }}</p>
-                    </div>
-                </div>
+                {% endfor %}
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-success">用户登录</button>
+                        <button type="submit" class="btn btn-success">店铺注册</button>
                     </div>
                 </div>
             </form>

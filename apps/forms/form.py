@@ -1,6 +1,6 @@
 from wtforms import Form
 from flask_wtf import FlaskForm
-from wtforms import StringField, validators, PasswordField
+from wtforms import StringField, validators, PasswordField, FloatField
 
 from apps.models.model import MerchantUser
 
@@ -32,12 +32,5 @@ class UserForm(RegisterUserForm):
             raise validators.ValidationError(message="该用户名已经被注册了")
 
 
-class MerchantShop(FlaskForm):
-    shop_name = StringField(label="店铺名",
-                            validators=[validators.DataRequired(message="请填写用户名"),
-                                        validators.Length(max=32, message="用户名过长"),
-                                        validators.Length(min=3, message="用户名少于3个字符"),
-                                        ],
-                            render_kw={'class': 'form-control', 'placeholder': '请输入用户名'},
-                            )
+
 

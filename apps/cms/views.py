@@ -35,7 +35,6 @@ def user_login():
         password = form.data['password']
         u1 = MerchantUser.query.filter(MerchantUser.username == username).first()
         if u1 is not None and u1.verify_password(password):
-
             try:
                 login_user(u1)
                 print(current_user.id)
@@ -54,9 +53,9 @@ def out_user():
     return redirect(url_for('user_bp.user'))
 
 
-@user_bp.route('/merchant_shop/', endpoint='merchant_shop', methods=('GET', 'POST'))
+# 添加菜品
+@user_bp.route('/menu_food/', endpoint='menu_food', methods=('GET', 'POST'))
 @login_required
-def merchant_shop():
+def menu_food():
     if request.method == 'GET':
-        return '{}正在添加商品'.format(current_user.username)
-    return render_template('merchant_shop.html')
+        return '{}正在添加菜品'.format(current_user.username)
