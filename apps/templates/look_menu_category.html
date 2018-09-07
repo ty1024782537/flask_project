@@ -47,12 +47,10 @@
                 <thead>
                 <tr>
                     <th>序号</th>
-                    <th>店铺名称</th>
-                    <th>店铺评分</th>
-                    <th>起送价格</th>
-                    <th>配送费</th>
-                    <th>菜品分类</th>
-                    <th>菜品信息</th>
+                    <th>分类名称</th>
+                    <th>分类描述</th>
+                    <th>分类编号</th>
+                    <th>是否删除</th>
                 </tr>
                 </thead>
                 {% if stores %}
@@ -61,26 +59,20 @@
                         <tr>
                             <th>{{ loop.index }}</th>
                             <th>
-                                <a href="{{ url_for('user_bp.updates_shop',food_uid=store.pub_id) }}">{{ store.shop_name }}</a>
+                                <a href="{{ url_for('user_bp.update_category',pub_id=store.pub_id) }}">{{ store.name }}</a>
                             </th>
-                            <th>{{ store.shop_rating }}</th>
-                            <th>￥ {{ store.start_send }}</th>
-                            <th>￥ {{ store.send_cost }}</th>
+                            <th>{{ store.description }}</th>
+                            <th>{{ store.type_accumulation }}</th>
                             <th>
-                                <a href="{{ url_for('user_bp.menu_category',pub_id=store.pub_id) }}">添加</a>
-                                &nbsp;&nbsp;
-                                <a href="{{ url_for('user_bp.look_category') }}">查看</a>
-                            </th>
-                            <th>
-                                <a href="#">添加</a>
-                                &nbsp;&nbsp;
-                                <a href="#">查看</a>
+                                <button><a
+                                        href="{{ url_for('user_bp.delete_category',type_accumulation = store.type_accumulation) }}">删除</a>
+                                </button>
                             </th>
                         </tr>
                     {% endfor %}
                     </tbody>
                 {% else %}
-                    <div><a href="{{ url_for('user_bp.merchant_shop') }}">还没有店铺那，赶快添加一个店铺吧...</a></div>
+                    <div><a href="#">还没有店铺那，赶快添加一个店铺吧...</a></div>
                 {% endif %}
             </table>
         </div>

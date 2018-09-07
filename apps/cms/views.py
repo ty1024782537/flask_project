@@ -53,9 +53,4 @@ def out_user():
     return redirect(url_for('user_bp.user'))
 
 
-# 添加菜品
-@user_bp.route('/menu_food/', endpoint='menu_food', methods=('GET', 'POST'))
-@login_required
-def menu_food():
-    if request.method == 'GET':
-        return '{}正在添加菜品'.format(current_user.username)
+

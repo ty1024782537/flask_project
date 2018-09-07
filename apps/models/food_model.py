@@ -18,6 +18,9 @@ class MenuCategory(BaseModel):
 
     shop = db.relationship('MerchantShop', backref='categories')
 
+    def keys(self):
+        return "name", "description", "type_accumulation", "is_default"
+
     def __repr__(self):
         return "<MenuCate {}>".format(self.name)
 

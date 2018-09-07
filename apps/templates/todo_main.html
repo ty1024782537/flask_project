@@ -20,7 +20,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_authenticated %}
-                        <a class="navbar-brand" href="{{ url_for('user_bp.merchant_shop') }}">
+                        <a class="navbar-brand" href="{{ url_for('user_bp.profile') }}">
                             尊敬的:{{ current_user.username }}</a>
                         <li><a href="{{ url_for('user_bp.out_user') }}">注销</a></li>
                     {% else %}

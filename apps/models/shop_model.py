@@ -36,5 +36,9 @@ class MerchantShop(BaseModel):
     # 建立反向查询关系
     merchant = db.relationship("MerchantUser", backref="shop")
 
+    def keys(self):
+        return "shop_name", "shop_img", "brand", "on_time", "fengniao", "bao", \
+               "piao", "zhun", "start_send", "send_cost", "notice", "discount"
+
     def __repr__(self):
         return '<Shop {} --- {}>'.format(self.shop_name, self.merchant)
