@@ -28,7 +28,7 @@ class MenuCategory(BaseModel):
 # 菜品信息
 class MenuFood(BaseModel):
     # 对外ID
-    goods_id = db.Column(db.String(8))
+    goods_id = db.Column(db.String(16))
     # 菜品名称
     goods_name = db.Column(db.String(64))
     # 菜品评分
@@ -39,7 +39,7 @@ class MenuFood(BaseModel):
     category_id = db.Column(db.Integer, db.ForeignKey('menu_category.id'))
     cates = db.relationship('MenuCategory', backref='foods')  # 添加一条关系
     # 菜品价格
-    goods_price = db.Column(db.DECIMAL(6, 2), default=0.0)
+    goods_price = db.Column(db.Float, default=0.0)
     # 菜品描述
     description = db.Column(db.String(128), default='')
     # 月销售额
@@ -51,5 +51,8 @@ class MenuFood(BaseModel):
     # 菜品图片
     goods_img = db.Column(db.String(128), default='')
 
+    def keys(self):
+        return "goods_name", "shop_id", "goods_price", "description","tips"
+
     def __repr__(self):
-        return "<Food: {}-{}>".format(self.food_name, self.food_price)
+        return "<Food: {}-{}>".format(self.goods_name, self.goods_price)

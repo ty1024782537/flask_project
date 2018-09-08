@@ -1,5 +1,4 @@
-from wtforms import Form, StringField, BooleanField, validators, SelectField
-from flask_login import current_user
+from wtforms import Form, StringField, BooleanField, validators
 
 
 class CateForm(Form):

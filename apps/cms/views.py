@@ -37,7 +37,6 @@ def user_login():
         if u1 is not None and u1.verify_password(password):
             try:
                 login_user(u1)
-                print(current_user.id)
                 return redirect(url_for('user_bp.user'))
             except:
                 form.password.errors = ['出错了!!']

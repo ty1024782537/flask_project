@@ -22,6 +22,9 @@ class MerchantUser(BaseModel, UserMixin):
     def get_id(self):
         return str(self.id)
 
+    def __repr__(self):
+        return '<User {}>'.format(self.username)
+
 
 # 加载用户的回调函数
 @login_manager.user_loader

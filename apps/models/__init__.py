@@ -18,7 +18,7 @@ class BaseModel(db.Model):
     #         return getattr(self, item)
 
     def __getitem__(self, item):
-        if hasattr(self, item):
+        if hasattr(self, str(item)):
             return getattr(self, item)
 
 

@@ -2,6 +2,8 @@ import uuid
 import datetime
 
 # 产生16位的UUID字符串
+from flask_login import current_user
+
 from apps.models import db
 
 
@@ -27,3 +29,25 @@ def form_add_model(form, model):
         db.session.add(model)
         db.session.commit()
         return True
+
+
+def is_delete_food_category():
+    store = current_user.shop
+    stors = store[0].categories
+    stores = []
+    for x in stors:
+        if not x.is_delete:
+            stores.append(x)
+    return stores
+
+
+def is_delete_food():
+    store = current_user.shop
+    stors = store[0].categories
+    stores = []
+    for x in stors:
+        t = x.foods
+        for e in t:
+            if not e.is_delete:
+                stores.append(e)
+    return stores

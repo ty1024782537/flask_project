@@ -1,10 +1,10 @@
-from flask import request, url_for, flash, abort
+from flask import request, url_for
 from apps.cms import user_bp
 from flask import render_template, redirect
 from flask_login import login_required, current_user
 
 from apps.forms.food_forms import CateForm
-from apps.libs.tools import generate_merchant_uuid, form_add_model
+from apps.libs.tools import generate_merchant_uuid, form_add_model, is_delete_food_category
 from apps.models import db
 from apps.models.food_model import MenuCategory
 
@@ -29,12 +29,7 @@ def menu_category(pub_id):
 @user_bp.route('/look_category/', endpoint='look_category', methods=('GET', 'POST'))
 @login_required
 def look_menu_category():
-    store = current_user.shop
-    stors = store[0].categories
-    stores = []
-    for x in stors:
-        if not x.is_delete:
-            stores.append(x)
+    stores = is_delete_food_category()
     return render_template('look_menu_category.html', stores=stores)
 
 
@@ -61,3 +56,5 @@ def delete_category(type_accumulation):
     model.update({'is_delete': True})
     db.session.commit()
     return redirect(url_for('user_bp.look_category'))
+
+

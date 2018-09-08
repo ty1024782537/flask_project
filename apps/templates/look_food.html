@@ -20,7 +20,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_authenticated %}
-                        <a class="navbar-brand" href="{{ url_for('user_bp.profile') }}">
+                        <a class="navbar-brand" href="{{ url_for('user_bp.merchant_shop') }}">
                             尊敬的:{{ current_user.username }}</a>
                         <li><a href="{{ url_for('user_bp.out_user') }}">注销</a></li>
                     {% else %}
@@ -47,12 +47,11 @@
                 <thead>
                 <tr>
                     <th>序号</th>
-                    <th>店铺名称</th>
-                    <th>店铺评分</th>
-                    <th>起送价格</th>
-                    <th>配送费</th>
-                    <th>菜品分类</th>
-                    <th>菜品信息</th>
+                    <th>菜品名称</th>
+                    <th>菜品价格</th>
+                    <th>菜品描述</th>
+                    <th>菜品提示信息</th>
+                    <th>是否删除</th>
                 </tr>
                 </thead>
                 {% if stores %}
@@ -61,26 +60,21 @@
                         <tr>
                             <th>{{ loop.index }}</th>
                             <th>
-                                <a href="{{ url_for('user_bp.updates_shop',food_uid=store.pub_id) }}">{{ store.shop_name }}</a>
+                                <a href="{{ url_for('user_bp.update_food',goods_id=store.goods_id) }}">{{ store.goods_name }}</a>
                             </th>
-                            <th>{{ store.shop_rating }}</th>
-                            <th>￥ {{ store.start_send }}</th>
-                            <th>￥ {{ store.send_cost }}</th>
+                            <th>{{ store.goods_price }}</th>
+                            <th>{{ store.description }}</th>
+                            <th>{{ store.tips }}</th>
                             <th>
-                                <a href="{{ url_for('user_bp.menu_category',pub_id=store.pub_id) }}">添加</a>
-                                &nbsp;&nbsp;
-                                <a href="{{ url_for('user_bp.look_category') }}">查看</a>
-                            </th>
-                            <th>
-                                <a href="{{ url_for('user_bp.add_food') }}">添加</a>
-                                &nbsp;&nbsp;
-                                <a href="{{ url_for('user_bp.look_food') }}">查看</a>
+                                <button><a
+                                        href="{{ url_for('user_bp.delete_food',goods_id=store.goods_id) }}">删除</a>
+                                </button>
                             </th>
                         </tr>
                     {% endfor %}
                     </tbody>
                 {% else %}
-                    <div><a href="{{ url_for('user_bp.merchant_shop') }}">还没有店铺那，赶快添加一个店铺吧...</a></div>
+                    <div><a href="#">还没有菜品,快添加菜品吧!!!...</a></div>
                 {% endif %}
             </table>
         </div>
