@@ -1,4 +1,6 @@
-from flask import request, url_for, flash, abort
+from flask import request, url_for, flash, abort, jsonify
+from qiniu import Auth
+
 from apps.cms import user_bp
 from flask import render_template, redirect
 from flask_login import login_required, current_user
@@ -18,6 +20,16 @@ def check_shop_pid(shop_pid):
     return shop
 
 
+@user_bp.route('/get_uptoken/')
+def get_token():
+    q = Auth(access_key="aocX5v6o2-3looKLWzbTWxTRfcVLfDqeJVSkWH6k",
+             secret_key="hLeCcp-5TfPRjNKcAS-mboBjjRPDKAT0U-vDsmab")
+
+    token = q.upload_token(bucket='flask-elm')
+
+    return jsonify({"uptoken": token})
+
+
 # 添加店铺
 @user_bp.route('/merchant_shop/', endpoint='merchant_shop', methods=('GET', 'POST'))
 @login_required
@@ -30,7 +42,7 @@ def merchant_shop():
         shop.merchant = current_user
         db.session.add(shop)
         db.session.commit()
-        return redirect(user_bp('user_bp.user'))
+        return redirect(url_for('user_bp.user'))
     return render_template('merchant_shop.html', form=form, titlt='添加')
 
 

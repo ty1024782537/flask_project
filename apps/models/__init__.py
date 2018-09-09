@@ -13,12 +13,8 @@ class BaseModel(db.Model):
             if hasattr(self, k) and k != 'id':
                 setattr(self, k, v)
 
-    # def __getitem__(self, item):
-    #     if hasattr(self, item):
-    #         return getattr(self, item)
-
     def __getitem__(self, item):
-        if hasattr(self, str(item)):
+        if hasattr(self, item):
             return getattr(self, item)
 
 

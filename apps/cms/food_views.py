@@ -14,6 +14,7 @@ from apps.models.food_model import MenuCategory
 @login_required
 def menu_category(pub_id):
     form = CateForm(request.form)
+    # print(form)
     if request.method == 'POST' and form.validate():
         shop = MenuCategory()
         shop.set_attr(form.data)
@@ -26,10 +27,10 @@ def menu_category(pub_id):
 
 
 # 查看菜品分类
-@user_bp.route('/look_category/', endpoint='look_category', methods=('GET', 'POST'))
+@user_bp.route('/look_category/<pub_id>/', endpoint='look_category', methods=('GET', 'POST'))
 @login_required
-def look_menu_category():
-    stores = is_delete_food_category()
+def look_menu_category(pub_id):
+    stores = is_delete_food_category(pub_id)
     return render_template('look_menu_category.html', stores=stores)
 
 
@@ -56,5 +57,3 @@ def delete_category(type_accumulation):
     model.update({'is_delete': True})
     db.session.commit()
     return redirect(url_for('user_bp.look_category'))
-
-

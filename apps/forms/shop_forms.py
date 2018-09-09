@@ -1,4 +1,5 @@
 from wtforms import Form, StringField, validators, BooleanField, DecimalField
+from wtforms.widgets import HiddenInput
 
 
 class MerchantShopForm(Form):
@@ -29,4 +30,6 @@ class MerchantShopForm(Form):
                          )
     discount = StringField(label="优惠信息", validators=[validators.Length(max=210, message="不能超过128个字符")],
                            render_kw={'class': 'form-control', 'placeholder': '请输入优惠信息'},
+                           )
+    shop_img = StringField(label="店铺图片", id='image-input', widget=HiddenInput(),
                            )

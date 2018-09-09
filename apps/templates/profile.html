@@ -69,12 +69,12 @@
                             <th>
                                 <a href="{{ url_for('user_bp.menu_category',pub_id=store.pub_id) }}">添加</a>
                                 &nbsp;&nbsp;
-                                <a href="{{ url_for('user_bp.look_category') }}">查看</a>
+                                <a href="{{ url_for('user_bp.look_category',pub_id=store.pub_id) }}">查看</a>
                             </th>
                             <th>
-                                <a href="{{ url_for('user_bp.add_food') }}">添加</a>
+                                <a href="{{ url_for('user_bp.add_food',pub_id=store.pub_id) }}">添加</a>
                                 &nbsp;&nbsp;
-                                <a href="{{ url_for('user_bp.look_food') }}">查看</a>
+                                <a href="{{ url_for('user_bp.look_food',pub_id=store.pub_id) }}">查看</a>
                             </th>
                         </tr>
                     {% endfor %}

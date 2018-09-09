@@ -1,5 +1,15 @@
 {% extends "bootstrap/base.html" %}
 {% block title %}用户管理{% endblock %}
+{%- block styles %}
+    <!-- Bootstrap -->
+    <link href="{{ bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap') }}" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
+{#    <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>#}
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename="itqiniu.js") }}"></script>
+    <script src="{{ url_for('static', filename="qiniu.js")}}"></script>
+{%- endblock styles %}
 {% block navbar %}
     <nav class="navbar navbar-inverse">
         <div class="container">
@@ -40,23 +50,66 @@
             </div>
             <form class="form-horizontal" method="post" action="">
                 {% for item in form %}
-                    <div class="form-group">
-                        {{ item.label(class_="col-sm-2 control-label") }}
-                        <div class="col-sm-10">
-                            {{ item }}
-                            <span class="text-danger">{{ item.errors[0] }}</span>
+                    {% if item.id == 'csrf_token' %}
+                        {{ item }}
+                    {% elif item.id == 'image-input' %}
+                        <div class="form-group">
+                            {{ item.label(class_="col-sm-2 control-label") }}
+                            <div class="col-sm-3">
+                                <button id="upload-bin" class="btn btn-default form-control">上传图片</button>
+                            </div>
+                            <div class="col-sm-6">
+                                {{ item }}
+                                <img src="" alt="" width="50px" id="image-show">
+                            </div>
                         </div>
-                    </div>
+                    {% else %}
+
+                        <div class="form-group">
+                            {{ item.label(class_="col-sm-2 control-label") }}
+                            <div class="col-sm-10">
+                                {{ item }}
+                                <span class="text-danger">{{ item.errors[0] }}</span>
+                            </div>
+                        </div>
+                    {% endif %}
                 {% endfor %}
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-success">店铺{{ titlt }}添加</button>
+                        <button type="submit" class="btn btn-success">店铺{{ titlt }}</button>
                     </div>
                 </div>
+
             </form>
         </div>
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ bootstrap_find_resource('jquery.js', cdn='jquery') }}"></script>
+    <script src="{{ bootstrap_find_resource('js/bootstrap.js', cdn='bootstrap') }}"></script>
+    <script>
+        window.onload = function () {
+            var image_input = document.getElementById('image-input').value;
+            var img = document.getElementById('image-show');
+            img.setAttribute('src', image_input);
+            itqiniu.setUp({
+
+                'domain': 'http://peqo7p9qv.bkt.clouddn.com/',
+                'browse_btn': 'upload-bin',
+                'uptoken_url': '/user/get_uptoken/',
+                'success': function (up, file, info) {
+                    var image_url = file.name;
+                    var image_input = document.getElementById('image-input');
+                    image_input.value = image_url;
+
+                    var img = document.getElementById('image-show');
+                    img.setAttribute('src', image_url);
+                },
+            });
+        };
+    </script>
 {% endblock %}
 
 

@@ -31,7 +31,23 @@ def form_add_model(form, model):
         return True
 
 
-def is_delete_food_category():
+def is_delete_food_category(pub_id):
+    store = current_user.shop
+    u = []
+    for x in store:
+        if x.categories and x.pub_id == pub_id:
+            u.append(x)
+    if u:
+        stors = u[0].categories
+        stores = []
+        for x in stors:
+            if not x.is_delete:
+                stores.append(x)
+        return stores
+    return None
+
+
+def is_delete_food_category_form():
     store = current_user.shop
     stors = store[0].categories
     stores = []
@@ -51,3 +67,22 @@ def is_delete_food():
             if not e.is_delete:
                 stores.append(e)
     return stores
+
+
+# 过滤菜品(查看功能)
+def is_delete_food_category_form_l(pub_id):
+    store = current_user.shop
+    u = []
+    for x in store:
+        if x.categories and x.pub_id == pub_id:
+            u.append(x)
+    if u:
+        stors = u[0].categories
+        stores = []
+        for x in stors:
+            t = x.foods
+            for i in t:
+                if not i.is_delete:
+                    stores.append(i)
+        return stores
+    return None

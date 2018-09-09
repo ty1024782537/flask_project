@@ -60,7 +60,7 @@
                         <tr>
                             <th>{{ loop.index }}</th>
                             <th>
-                                <a href="{{ url_for('user_bp.update_food',goods_id=store.goods_id) }}">{{ store.goods_name }}</a>
+                                <a href="{{ url_for('user_bp.update_food',goods_id=store.goods_id,pub_id=pub_id) }}">{{ store.goods_name }}</a>
                             </th>
                             <th>{{ store.goods_price }}</th>
                             <th>{{ store.description }}</th>

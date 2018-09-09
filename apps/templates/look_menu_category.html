@@ -65,7 +65,11 @@
                             <th>{{ store.type_accumulation }}</th>
                             <th>
                                 <button><a
-                                        href="{{ url_for('user_bp.delete_category',type_accumulation = store.type_accumulation) }}">删除</a>
+                                        href="{% if store.type_accumulation %}
+                                        {{ url_for('user_bp.delete_category',type_accumulation = store.type_accumulation) }}
+                                        {% else %}
+                                        {{ url_for('user_bp.delete_category',type_accumulation = 'a01') }}
+                                        {% endif %}">删除</a>
                                 </button>
                             </th>
                         </tr>

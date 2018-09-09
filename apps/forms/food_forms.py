@@ -1,4 +1,4 @@
-from wtforms import Form, StringField, BooleanField, validators
+from wtforms import Form, StringField, BooleanField, validators, HiddenField
 
 
 class CateForm(Form):
@@ -25,12 +25,4 @@ class CateForm(Form):
                                     )
     # 是否默认
     is_default = BooleanField(label="是否默认")
-    # # 进行外键选择
-    # shop_id = SelectField(label="店铺信息",
-    #                       validators=[validators.DataRequired(message="请选择分类")],
-    #                       render_kw={'class': 'form-control'},
-    #                       )
-    #
-    # def __init__(self, *args, **kwargs):
-    #     super(CateForm, self).__init__(*args, **kwargs)
-    #     self.shop_id.choices = [(x.pub_id, x.shop_name) for x in current_user.shop]
+

@@ -40,6 +40,7 @@ class MenuFood(BaseModel):
     cates = db.relationship('MenuCategory', backref='foods')  # 添加一条关系
     # 菜品价格
     goods_price = db.Column(db.Float, default=0.0)
+    # db.DECIMAL(6, 2)
     # 菜品描述
     description = db.Column(db.String(128), default='')
     # 月销售额
