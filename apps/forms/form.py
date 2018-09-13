@@ -1,5 +1,4 @@
 from wtforms import Form
-from flask_wtf import FlaskForm
 from wtforms import StringField, validators, PasswordField, FloatField
 
 from apps.models.model import MerchantUser

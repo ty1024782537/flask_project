@@ -32,6 +32,7 @@ class CateFoodForm(Form):
                        validators=[validators.Length(max=128, message="不能超过128个字符")],
                        render_kw={'class': 'form-control', 'placeholder': '请输入菜品提示信息'},
                        )
+
     goods_img = StringField(label="店铺图片", id='image-input', widget=HiddenInput(),
                             )
 

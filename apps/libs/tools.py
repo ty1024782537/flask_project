@@ -5,6 +5,8 @@ import datetime
 from flask_login import current_user
 
 from apps.models import db
+from apps.models.food_model import MenuCategory, MenuFood
+from apps.models.shop_model import MerchantShop
 
 
 def generate_merchant_uuid():
@@ -86,3 +88,23 @@ def is_delete_food_category_form_l(pub_id):
                     stores.append(i)
         return stores
     return None
+
+
+def food(shop):
+    menu_food = MenuCategory.query.filter(MenuCategory.shop_id == shop.pub_id)
+    data = [dict(dict(shop), **{'goods_list': shop_food(shop)}) for shop in menu_food]
+    return data
+
+
+# 查看当前店铺的食品
+def shop_food(shop):
+    menu_food = MenuFood.query.filter(MenuFood.category_id == shop.id)
+    data = [dict(dict(food), **{'goods_id': food.goods_id}) for food in menu_food]
+    return data
+
+
+# 查看当前店铺
+def food_category_api(pub_id):
+    store = MerchantShop.query.filter(MerchantShop.pub_id == pub_id).first()
+    date = {**dict(store), 'commodity': food(store), 'id': store.pub_id}
+    return date

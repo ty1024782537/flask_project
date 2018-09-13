@@ -42,3 +42,16 @@ def create_app():
     login_manager.init_app(app)
 
     return app
+
+
+def api_create_app():
+    app = Flask(__name__, static_url_path='', static_folder='./web_client')
+    # 设置配置文件
+    app.config.from_object('apps.settings.DevApiConfig')
+    # 设置数据库
+    user_db(app)
+
+    from apps.api import api_bp
+    app.register_blueprint(api_bp)
+
+    return app
