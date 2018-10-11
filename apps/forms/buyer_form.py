@@ -1,5 +1,5 @@
 from wtforms import Form, StringField, validators, PasswordField
-
+# from flask_wtf import Form
 from apps.libs.help import api_redis
 from apps.models.api_user_model import BuyerUser
 

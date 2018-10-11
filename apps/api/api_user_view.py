@@ -1,5 +1,4 @@
 from datetime import timedelta
-
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import request, jsonify, current_app, g
 import random
@@ -53,7 +52,7 @@ def login():
         user = BuyerUser.query.filter(BuyerUser.username == form.data['name']).first()
         data = s.dumps({'user_id': user.id})
         res = jsonify({'status': 'true', 'message': '登录成功!', 'user_id': user.id, 'username': form.data['name']})
-        res.set_cookie('token', data.decode(encoding='utf-8', errors='strict'))
+        res.set_cookie('token', data.decode('utf-8'))
         return res
     else:
         return jsonify({'status': 'false', 'message': '登录失败!'})
